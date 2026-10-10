@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://11a-photobooth.vercel.app/sitemap.xml
+
