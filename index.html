@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>11 «А» сынып — Бақытты сәттер фотобуткасы ❤️</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Montserrat:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Сайттың шетіндегі QURMASH белгісі -->
+  <div class="qurmash-edge-badge">
+    <span class="heart-pulse">❤️</span>
+    <span class="qurmash-title">QURMASH</span>
+    <span class="heart-pulse">❤️</span>
+  </div>
+
+  <!-- Жүректер фон анимациясы -->
+  <div class="hearts-container" id="heartsContainer"></div>
+
+  <!-- Басты парақ (Hero Section) -->
+  <header class="hero-section">
+    <div class="hero-content">
+      <div class="class-badge">
+        <span class="heart-pulse">❤️</span>
+        <span class="badge-text">11 «А» сынып</span>
+        <span class="heart-pulse">❤️</span>
+      </div>
+
+      <h1 class="hero-title">
+        Мектеп жылдарының <span class="highlight-text">ең тәтті</span> естеліктері
+      </h1>
+
+      <p class="hero-subtitle">
+        Бірге өткізген әрбір күніміз — біздің тарихымыз. Бір сәтке тоқтап, достарыңмен күлкіге толы бақытты шақтарды мәңгілікке сақтап қал!
+      </p>
+
+      <div class="hero-actions">
+        <button id="heroCaptureBtn" class="btn-primary pulse-btn">
+          <span class="btn-icon">📸</span>
+          <span>Бақытты кездерді сақтап қалу</span>
+          <span class="sparkle">✨</span>
+        </button>
+      </div>
+
+      <div class="decorative-polaroids">
+        <div class="mini-polaroid rotate-left">
+          <div class="polaroid-inner">💖 11 "А"</div>
+        </div>
+        <div class="mini-polaroid rotate-right">
+          <div class="polaroid-inner">✨ 2026</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Фотобутка бөлімі (Photobooth Section) -->
+  <main class="photobooth-section" id="photoboothSection">
+    <div class="section-header">
+      <div class="section-tag">❤️ 11 «А» Фотобуткасы ❤️</div>
+      <h2 class="section-title">4 суретті естелік лентасы</h2>
+      <p class="section-desc">Әдемі фильтр таңдап, 4 қайталанбас сурет түсіріңіз және файл ретінде сақтаңыз!</p>
+    </div>
+
+    <div class="photobooth-container">
+      <!-- Сол жақ: Камера және баптаулар -->
+      <div class="camera-card">
+        <div class="camera-screen-wrapper">
+          <video id="webcamVideo" autoplay playsinline muted></video>
+          <canvas id="liveCanvas" class="hidden"></canvas>
+          
+          <!-- Кері санақ оверлейі (3, 2, 1) -->
+          <div id="countdownOverlay" class="countdown-overlay hidden">
+            <span id="countdownNumber">3</span>
+            <span class="countdown-tip" id="countdownTip">Жымиыңыз! 😊</span>
+          </div>
+
+          <!-- Жарқыл анимациясы (Flash) -->
+          <div id="flashEffect" class="flash-effect"></div>
+
+          <!-- Түсіру статусы (1/4) -->
+          <div id="shotStatusBadge" class="shot-status-badge hidden">
+            <span id="currentShotText">1 / 4 сурет</span>
+          </div>
+
+          <!-- Камера қателігі туралы хабарлама -->
+          <div id="cameraErrorBox" class="camera-error-box hidden">
+            <div class="camera-error-icon">📷</div>
+            <h3 id="cameraErrorTitle">Камераны қосыңыз</h3>
+            <p id="cameraErrorText">Төмендегі батырманы басып, браузер сұрағанда камераға рұқсат беріңіз.</p>
+            <div class="camera-fallback-actions">
+              <button type="button" id="enableCameraBtn" class="btn-enable-camera">📷 Камераны қосу</button>
+              <label class="btn-upload" for="fileInputUpload">📂 Галереядан таңдау</label>
+            </div>
+            <input type="file" id="fileInputUpload" accept="image/*" multiple class="hidden">
+          </div>
+        </div>
+
+        <!-- Фильтр таңдау панелі -->
+        <div class="filters-panel">
+          <label class="panel-label">🎨 Фильтрді таңдаңыз:</label>
+          <div class="filter-chips" id="filterChips">
+            <button class="filter-chip active" data-filter="normal">Табиғи ✨</button>
+            <button class="filter-chip" data-filter="vintage">Ретро 🎞️</button>
+            <button class="filter-chip" data-filter="soft-glow">Жұмсақ 🌸</button>
+            <button class="filter-chip" data-filter="rosy">Қызғылт 💖</button>
+            <button class="filter-chip" data-filter="warm">Жылы сәт ☀️</button>
+            <button class="filter-chip" data-filter="bw">Ақ-қара 🖤</button>
+            <button class="filter-chip" data-filter="cyber">Ашық 🌈</button>
+          </div>
+        </div>
+
+        <!-- Тор пішімі (Формат: 2/2 тор немесе лента) -->
+        <div class="layout-panel">
+          <label class="panel-label">📐 Тор пішімі (Орналасуы):</label>
+          <div class="layout-chips" id="layoutChips">
+            <button class="layout-chip active" data-layout="2x2">
+              <span class="layout-icon">⊞</span> 2/2 Тор (Квадрат коллаж)
+            </button>
+            <button class="layout-chip" data-layout="1x4">
+              <span class="layout-icon">𝄀</span> 1x4 Вертикаль лента
+            </button>
+          </div>
+        </div>
+
+        <!-- Рамка түсін таңдау панелі -->
+        <div class="frame-style-panel">
+          <label class="panel-label">🖼️ Рамка стилі:</label>
+          <div class="frame-colors" id="frameColorOptions">
+            <button class="color-btn active" data-color="#ffffff" title="Ақ классика" style="background:#ffffff;"></button>
+            <button class="color-btn" data-color="#18181b" title="Қара стиль" style="background:#18181b;"></button>
+            <button class="color-btn" data-color="#ffd1dc" title="Қызғылт романтика" style="background:#ffd1dc;"></button>
+            <button class="color-btn" data-color="#e2d4f0" title="Лаванда арманы" style="background:#e2d4f0;"></button>
+            <button class="color-btn" data-color="#ffeaa7" title="Жылы сары" style="background:#ffeaa7;"></button>
+            <button class="color-btn" data-color="#d4edda" title="Жалбыз балғындығы" style="background:#d4edda;"></button>
+          </div>
+        </div>
+
+        <!-- Басқару батырмалары -->
+        <div class="camera-controls">
+          <button id="startCaptureBtn" class="btn-capture">
+            <span class="shutter-icon">⚪</span>
+            <span>4 фото түсіруді бастау</span>
+          </button>
+          <button id="flipCameraBtn" class="btn-icon-only" title="Камераны ауыстыру">
+            🔄
+          </button>
+        </div>
+
+        <!-- Түсірілген 4 суреттің шағын көрінісі -->
+        <div class="shot-thumbnails" id="shotThumbnails">
+          <div class="thumb-slot" id="thumb0"><span>1</span></div>
+          <div class="thumb-slot" id="thumb1"><span>2</span></div>
+          <div class="thumb-slot" id="thumb2"><span>3</span></div>
+          <div class="thumb-slot" id="thumb3"><span>4</span></div>
+        </div>
+      </div>
+
+      <!-- Оң жақ: Нәтиже лентасы және жүктеу -->
+      <div class="result-card">
+        <div class="result-header">
+          <h3>📸 Дайын Фотолента</h3>
+          <p>Төменде түсірілген фотолентаңыз шығады</p>
+        </div>
+
+        <div class="strip-preview-wrapper" id="stripPreviewWrapper">
+          <!-- Canvas-та дайындалатын фотобутка лентасы -->
+          <canvas id="photostripCanvas"></canvas>
+          <div id="emptyStripPlaceholder" class="empty-placeholder">
+            <div class="placeholder-icon">🎞️</div>
+            <p>Суреттер түсірілген соң осында 11 «А» сынып фотолентасы дайын болады!</p>
+          </div>
+        </div>
+
+        <!-- Жазуды жекешелендіру -->
+        <div class="custom-text-box">
+          <label for="customStripCaption">Лентадағы жазу:</label>
+          <input type="text" id="customStripCaption" value="11 «А» сынып ❤️" maxlength="30">
+        </div>
+
+        <!-- Фотоның үстіне шығатын шағын стикерлер -->
+        <div class="sticker-picker" aria-labelledby="stickerPickerLabel">
+          <div class="sticker-picker-title" id="stickerPickerLabel">
+            <span>Стикерлер</span>
+            <small>3-ке дейін таңдаңыз</small>
+          </div>
+          <div class="sticker-options" id="stickerOptions">
+            <button type="button" class="sticker-btn active" data-sticker="💖" aria-pressed="true" title="Жүрек">💖</button>
+            <button type="button" class="sticker-btn active" data-sticker="✨" aria-pressed="true" title="Жарқыл">✨</button>
+            <button type="button" class="sticker-btn active" data-sticker="🎓" aria-pressed="true" title="Мектеп">🎓</button>
+            <button type="button" class="sticker-btn" data-sticker="🌸" aria-pressed="false" title="Гүл">🌸</button>
+            <button type="button" class="sticker-btn" data-sticker="📸" aria-pressed="false" title="Камера">📸</button>
+            <button type="button" class="sticker-btn" data-sticker="🦋" aria-pressed="false" title="Көбелек">🦋</button>
+          </div>
+        </div>
+
+        <!-- Нәтижені сақтау батырмалары -->
+        <div class="result-actions">
+          <button id="shareBtn" class="btn-share" disabled>
+            <span>📤 AirDrop / Бөлісу</span>
+          </button>
+          <button id="downloadBtn" class="btn-download" disabled>
+            <span>📥 Файлға сақтау (PNG)</span>
+          </button>
+          <button id="retakeBtn" class="btn-secondary" disabled>
+            <span>🔄 Қайта түсіру</span>
+          </button>
+        </div>
+        <p id="shareStatus" class="share-status" role="status" aria-live="polite"></p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Сыныптастар бөлімі (Classmates Section) -->
+  <section class="classmates-section" id="classmatesSection">
+    <div class="classmates-container">
+      <div class="classmates-header">
+        <div class="classmates-badge">❤️ 11 «А» ЖАНҰЯСЫ ❤️</div>
+        <h3 class="classmates-title">Біздің сүйікті сыныптастарымыз</h3>
+        <p class="classmates-subtitle">21 жүрек — бір үлкен отбасы • Ұмытылмас мектеп жылдары ✨</p>
+      </div>
+
+      <div class="classmates-grid">
+        <div class="classmate-card"><span class="c-heart">💖</span> <span class="c-name">Айсулу</span></div>
+        <div class="classmate-card"><span class="c-heart">💖</span> <span class="c-name">Анель</span></div>
+        <div class="classmate-card"><span class="c-heart">💖</span> <span class="c-name">Алтынай</span></div>
+        <div class="classmate-card"><span class="c-heart">💖</span> <span class="c-name">Асылзат</span></div>
+        <div class="classmate-card"><span class="c-heart">💖</span> <span class="c-name">Нұрдана</span></div>
+        <div class="classmate-card"><span class="c-heart">💖</span> <span class="c-name">Ақмейір</span></div>
+        <div class="classmate-card"><span class="c-heart">💖</span> <span class="c-name">Марием</span></div>
+        <div class="classmate-card"><span class="c-heart">💖</span> <span class="c-name">Кәусар</span></div>
+        <div class="classmate-card"><span class="c-heart">💖</span> <span class="c-name">Айзада</span></div>
+        <div class="classmate-card"><span class="c-heart">💖</span> <span class="c-name">Бибажар</span></div>
+        <div class="classmate-card"><span class="c-heart">💖</span> <span class="c-name">Сабина</span></div>
+        <div class="classmate-card"><span class="c-heart">💖</span> <span class="c-name">Мерей</span></div>
+        <div class="classmate-card"><span class="c-heart">💖</span> <span class="c-name">Асия</span></div>
+        <div class="classmate-card"><span class="c-heart">💖</span> <span class="c-name">Нұрлыбек</span></div>
+        <div class="classmate-card"><span class="c-heart">💖</span> <span class="c-name">Таурат</span></div>
+        <div class="classmate-card"><span class="c-heart">💖</span> <span class="c-name">Тұрар</span></div>
+        <div class="classmate-card"><span class="c-heart">💖</span> <span class="c-name">Әли</span></div>
+        <div class="classmate-card"><span class="c-heart">💖</span> <span class="c-name">Нұрмұхаммед</span></div>
+        <div class="classmate-card"><span class="c-heart">💖</span> <span class="c-name">Әлихан</span></div>
+        <div class="classmate-card"><span class="c-heart">💖</span> <span class="c-name">Мұхамеджан</span></div>
+        <div class="classmate-card"><span class="c-heart">💖</span> <span class="c-name">Абдулла</span></div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-brand">
+      <span class="heart-pulse">❤️</span>
+      <span class="brand-name">QURMASH</span>
+      <span class="heart-pulse">❤️</span>
+    </div>
+    <p>11 «А» сыныбына арналған арнайы естелік фотобуткасы | Барлық бақытты сәттер сақталсын! ✨</p>
+  </footer>
+
+  <!-- Фондық музыка ойнатқышы (Ayau - Kel kel) -->
+  <div class="music-widget" id="musicWidget">
+    <div class="music-disc" id="musicDisc">💿</div>
+    <div class="music-info">
+      <div class="music-track-title">Ayau — kel kel :)</div>
+      <div class="music-status" id="musicStatusText">Жай әуен ✦ 25%</div>
+    </div>
+    <div class="music-equalizer" id="musicEqualizer">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </div>
+    <button class="music-toggle-btn" id="musicToggleBtn" title="Музыканы қосу / тоқтату">
+      ▶
+    </button>
+  </div>
+
+  <!-- Фондық музыка ойнатқышы: Ayau - Kel kel :) -->
+  <audio id="localAudioPlayer" src="ayau-kel-kel.mp3" loop preload="auto"></audio>
+
+  <script src="app.js"></script>
+</body>
+</html>
